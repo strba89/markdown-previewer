@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import MainPage from "./pages/Main.page";
+import {getText} from "./store/text/actions";
+import ReactFCCtest from 'react-fcctest';
+import {connect} from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  componentDidMount() {
+    this.props.getText()
+  }
+
+  render() {
+    return [
+        <MainPage/>,
+        <ReactFCCtest/>
+    ];
+  }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  getText: (prop) => dispatch(getText(prop))
+});
+export default connect(
+    null,
+    mapDispatchToProps
+)(App)
